@@ -31,4 +31,10 @@ if [ -d "$INSTALL_DIR/skills" ]; then
     python3 "$INSTALL_DIR/tools/skills_sync.py"
 fi
 
+# Route "gateway" commands to the gateway script directly (no systemd needed)
+if [ "$1" = "gateway" ]; then
+    shift
+    exec python3 "$INSTALL_DIR/scripts/hermes-gateway" "$@"
+fi
+
 exec hermes "$@"
